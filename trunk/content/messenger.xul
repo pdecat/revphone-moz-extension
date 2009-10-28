@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<overlay id="revphone"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <!-- This adds our name in the panel. -->
+	<statusbar id="status-bar">
+		<statusbarpanel id="revphone_panel" label="Revphone"/>
+	</statusbar>
+</overlay>
