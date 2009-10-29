@@ -1,0 +1,6 @@
+#summary How-to develop a Mozilla extension.
+#labels documentation,extension
+
+= References =
+
+https://developer.mozilla.org/en/Extensions/Thunderbird/Building_a_Thunderbird_extension
