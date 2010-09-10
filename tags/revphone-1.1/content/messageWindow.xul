@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<overlay id="revphone"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <!-- This imports our javascript. -->
+    <script type="application/x-javascript" src="chrome://revphone/content/revphone.js"></script>
+	
+    <!-- This is for the right click menu. -->
+    <popup id="mailContext">
+      <!--menuseparator id="revphone_separator"/-->
+      <menu id="revphone_main" label="Revphone">
+        <menupopup id="revphone_main:popup" onpopupshowing="connect();">
+          <menuitem id="revphone_main:result" label="No selection" disabled="true" />
+        </menupopup>
+      </menu>
+    </popup>
+</overlay>
