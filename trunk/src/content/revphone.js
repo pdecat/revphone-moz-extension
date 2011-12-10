@@ -4,9 +4,29 @@ var trans = '';
 var last_selection = '';
 var url = '';
 
-function setRPLabel(label) {
-	document.getElementById("revphone_panel").setAttribute('label', 'Revphone ' + label);
-}
+var jQ;
+
+var consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
+
+window.addEventListener("load", function jQueryLoader(evt){
+	window.removeEventListener("load", jQueryLoader, false);
+
+	//load jQuery
+	Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
+		.getService(Components.interfaces.mozIJSSubScriptLoader)
+		.loadSubScript("chrome://messenger/content/jquery.js");
+
+	//copy the jQuery variable into our namespace
+	jQ = window.$;
+
+	//then restore the global $ and jQuery objects
+	jQuery.noConflict(true);
+
+	//a couple of tests to make verify
+	//alert(window.$);
+	//alert(window.jQuery);
+	//alert(jQ);
+}, false);
 
 function trim(str) {
 	var x = str;
@@ -16,8 +36,6 @@ function trim(str) {
 }
 
 function LOG(msg) {
-  var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
-								 .getService(Components.interfaces.nsIConsoleService);
   consoleService.logStringMessage('RP ' + msg);
 }
 
@@ -43,7 +61,7 @@ function connect() {
 	
 	if (selection != '') {
 		if (selection != last_selection) {
-			document.getElementById("revphone_main:result").setAttribute('label', 'Connexion à Infobel');	
+			jQ("#revphone_main\\:result").attr('label', 'Connexion à Infobel');	
 			url = 'http://www.infobel.com/fr/france/Inverse.aspx?qphone=' + selection;
 			
 			LOG(url + '...');
@@ -52,7 +70,7 @@ function connect() {
 			xrequest.onerror = function () {  
 				
 				LOG('connect: Echec de la connexion !'); 
-				document.getElementById("revphone_main:result").setAttribute('label', connecterror);
+				jQ("#revphone_main\\:result").attr('label', connecterror);
 			};
 					   
 			xrequest.open("GET", url, true);
@@ -91,9 +109,9 @@ function parseContent() {
 function updateMenu() {
 	LOG('updateMenu: trans=' + trans); 
 	if (trans == "" || trans == selection) {
-		document.getElementById("revphone_main:result").setAttribute('label', 'Pas de correspondance pour "' + selection + '"');
+		jQ("#revphone_main\\:result").attr('label', 'Pas de correspondance pour "' + selection + '"');
 	} else {
-		document.getElementById("revphone_main:result").setAttribute('label', trans);
-		document.getElementById("revphone_main:result").setAttribute('disabled', false);		   						  				
+		jQ("#revphone_main\\:result").attr('label', trans);
+		jQ("#revphone_main\\:result").attr('disabled', false);		   						  				
 	}
 }
